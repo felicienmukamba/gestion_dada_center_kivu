@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Liste des Plans d'Hébergement</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter un plan d'hébergement</button>
+  </form>
+  <ul>
+    {% for plan in plans %}
+      <li>
+        {{ plan.name }} - {{ plan.price }} € - {{ plan.storage_limit }} MB - {{ plan.bandwidth_limit }} GB
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

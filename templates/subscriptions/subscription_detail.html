@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Détails de l'Abonnement</h1>
+  <p>Utilisateur: {{ subscription.user.username }}</p>
+  <p>Plan: {{ subscription.plan.name }}</p>
+  <p>Début: {{ subscription.start_date }}</p>
+  <p>Fin: {{ subscription.end_date }}</p>
+  <p>Actif: {{ subscription.active }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="edit" class="btn btn-primary">Editer</button>
+    <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
+  </form>
+  <a href="{% url 'subscription-list' %}">Retour à la liste des abonnements</a>
+{% endblock %}

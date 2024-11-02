@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Fichiers Partagés</h1>
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary"><i class="fas fa-share-alt"></i> Partager un fichier</button>
+  </form>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><i class="fas fa-file"></i> Nom du Fichier</th>
+        <th><i class="fas fa-user"></i> Partagé avec</th>
+        <th><i class="fas fa-lock"></i> Permission</th>
+        <th><i class="fas fa-calendar-alt"></i> Partagé le</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shared_file in shared_files %}
+        <tr>
+          <td>{{ shared_file.file.name }}</td>
+          <td>{{ shared_file.shared_with.username }}</td>
+          <td>{{ shared_file.permission }}</td>
+          <td>{{ shared_file.shared_at }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

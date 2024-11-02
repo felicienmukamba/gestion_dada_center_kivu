@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Détails du Ticket</h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h5>
+      <p class="card-text">Description: {{ ticket.description }}</p>
+      <p class="card-text">Créé le: {{ ticket.created_at }}</p>
+      <p class="card-text">Mis à jour le: {{ ticket.updated_at }}</p>
+      <p class="card-text">Résolu: {{ ticket.resolved|yesno:"Oui,Non" }}</p>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="edit" class="btn btn-primary"><i class="fas fa-edit"></i> Editer</button>
+        <button type="submit" name="resolve" class="btn btn-success"><i class="fas fa-check-circle"></i> Marquer comme Résolu</button>
+        <button type="submit" name="delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
+      </form>
+    </div>
+  </div>
+  <a href="{% url 'ticket-list' %}" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left"></i> Retour à la liste des tickets</a>
+{% endblock %}

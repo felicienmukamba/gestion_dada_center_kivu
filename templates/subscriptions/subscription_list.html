@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Liste des Abonnements</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter un abonnement</button>
+  </form>
+  <ul>
+    {% for subscription in subscriptions %}
+      <li>
+        <a href="{% url 'subscription-detail' subscription.pk %}">{{ subscription.user.username }} - {{ subscription.plan.name }} - Actif: {{ subscription.active }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

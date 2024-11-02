@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Mes Tickets de Support</h1>
+  <form method="post" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Créer un nouveau ticket</button>
+  </form>
+  <div class="row">
+    {% for ticket in tickets %}
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-ticket-alt"></i> {{ ticket.subject }}</h5>
+            <p class="card-text">Créé le: {{ ticket.created_at }}</p>
+            <p class="card-text">Résolu: {{ ticket.resolved|yesno:"Oui,Non" }}</p>
+            <a href="{% url 'ticket-detail' ticket.pk %}" class="btn btn-secondary"><i class="fas fa-eye"></i> Voir Détails</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

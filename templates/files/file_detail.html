@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Détails du Fichier</h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><i class="fas fa-file"></i> {{ file.name }}</h5>
+      <p class="card-text">Type: {{ file.file_type }}</p>
+      <p class="card-text">Taille: {{ file.size }} octets</p>
+      <p class="card-text">Téléchargé par: {{ file.uploaded_by.username }}</p>
+      <p class="card-text">Créé le: {{ file.created_at }}</p>
+      <p class="card-text">Mis à jour le: {{ file.updated_at }}</p>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="edit" class="btn btn-primary"><i class="fas fa-edit"></i> Editer</button>
+        <button type="submit" name="delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Supprimer</button>
+      </form>
+    </div>
+  </div>
+  <a class="nav-link" href="{% url 'sharedfile-list' file.pk %}"><i class="fas fa-share-alt"></i> Fichiers partagés</a>
+  <a href="{% url 'file-list' folder.pk %}" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left"></i> Retour à la liste des fichiers</a>
+{% endblock %}

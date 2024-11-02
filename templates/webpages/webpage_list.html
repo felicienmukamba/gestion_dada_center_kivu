@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Liste des Pages Web pour {{ website.domain_name }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter une page web</button>
+  </form>
+  <ul>
+    {% for page in pages %}
+      <li>
+        <a href="{% url 'webpage-detail' website.pk page.pk %}">{{ page.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

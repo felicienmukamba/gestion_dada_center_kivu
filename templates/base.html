@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Centre de données Kivu RDC{% endblock %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    .sidebar {
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      background: #343a40;
+      padding-top: 20px;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+    }
+    .sidebar .nav-link:hover {
+      background: #495057;
+    }
+    .sidebar .nav-item i {
+      margin-right: 10px;
+    }
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+        <span class="navbar-text ml-auto mx-3">
+          Centre de données Kivu RDC
+        </span>
+        <ul class="navbar-nav mr-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </li>
+          {% else %}
+            <li class="nav-item mx-3">
+              <a class="nav-link" href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Inscription</a>
+            </li>
+            <li class="nav-item" mx-3>
+              <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="sidebar">
+    <nav class="nav flex-column">
+      <div class="logo">
+        <img src="{% static 'path/to/your/logo.png' %}" alt="Logo" class="img-fluid" style="max-width: 150px;">
+      </div>
+      <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i><span class="mx-1">Page Accueil</span></a>
+      {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'dashbord' %}"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+        <a class="nav-link" href="{% url 'transaction-list' %}"><i class="fas fa-exchange-alt"></i>  Gestion Transactions</a>
+        <a class="nav-link" href="{% url 'invoice-list' %}"><i class="fas fa-file-invoice"></i>  Gestion Factures</a>
+        <a class="nav-link" href="{% url 'website-list' %}"><i class="fas fa-globe"></i>  Gestion Sites Web</a>
+        <a class="nav-link" href="{% url 'hostingplan-list' %}"><i class="fas fa-server"></i>  Gestion Plans d'hébergement</a>
+        <a class="nav-link" href="{% url 'subscription-list' %}"><i class="fas fa-clipboard-list"></i> Abonnements</a>
+        <a class="nav-link" href="{% url 'folder-list' %}"><i class="fas fa-folder"></i>  Gestion Dossiers</a>
+        <a class="nav-link" href="{% url 'ticket-list' %}"><i class="fas fa-ticket-alt"></i>  Gestion Tickets de support</a>
+        <a class="nav-link" href="{% url 'all-tickets' %}"><i class="fas fa-list"></i>  Gestion Tous les tickets de support</a>
+      {% endif %}
+    </nav>
+  </div>
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

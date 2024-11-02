@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Tableau de bord</h1>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-center bg-primary text-white">
+        <div class="card-body">
+          <i class="fas fa-users fa-3x mb-2"></i>
+          <h5 class="card-title">Utilisateurs</h5>
+          <p class="card-text">{{ users.count }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-success text-white">
+        <div class="card-body">
+          <i class="fas fa-folder fa-3x mb-2"></i>
+          <h5 class="card-title">Dossiers</h5>
+          <p class="card-text">{{ folders.count }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-danger text-white">
+        <div class="card-body">
+          <i class="fas fa-file fa-3x mb-2"></i>
+          <h5 class="card-title">Fichiers</h5>
+          <p class="card-text">{{ files.count }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-center bg-info text-white">
+        <div class="card-body">
+          <i class="fas fa-share-alt fa-3x mb-2"></i>
+          <h5 class="card-title">Fichiers Partagés</h5>
+          <p class="card-text">{{ shared_files.count }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion" id="dashboardAccordion">
+    <div class="card mb-3">
+      <div class="card-header" id="headingUsers">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+            <i class="fas fa-users"></i> Utilisateurs
+          </button>
+        </h2>
+      </div>
+      <div id="collapseUsers" class="collapse show" aria-labelledby="headingUsers" data-parent="#dashboardAccordion">
+        <div class="card-body">
+          <ul class="nav nav-tabs" id="usersTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="list-tab" data-toggle="tab" href="#userList" role="tab" aria-controls="userList" aria-selected="true">Liste</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="usersTabContent">
+            <div class="tab-pane fade show active" id="userList" role="tabpanel" aria-labelledby="list-tab">
+              <ul>
+                {% for user in users %}
+                  <li>{{ user.username }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header" id="headingTickets">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTickets" aria-expanded="false" aria-controls="collapseTickets">
+            <i class="fas fa-ticket-alt"></i> Tickets de Support
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTickets" class="collapse" aria-labelledby="headingTickets" data-parent="#dashboardAccordion">
+        <div class="card-body">
+          <ul class="nav nav-tabs" id="ticketsTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="list-tab" data-toggle="tab" href="#ticketList" role="tab" aria-controls="ticketList" aria-selected="true">Liste</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="ticketsTabContent">
+            <div class="tab-pane fade show active" id="ticketList" role="tabpanel" aria-labelledby="list-tab">
+              <ul>
+                {% for ticket in tickets %}
+                  <li>{{ ticket.subject }} - {{ ticket.user.username }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header" id="headingFolders">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFolders" aria-expanded="false" aria-controls="collapseFolders">
+            <i class="fas fa-folder"></i> Dossiers
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFolders" class="collapse" aria-labelledby="headingFolders" data-parent="#dashboardAccordion">
+        <div class="card-body">
+          <ul class="nav nav-tabs" id="foldersTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="list-tab" data-toggle="tab" href="#folderList" role="tab" aria-controls="folderList" aria-selected="true">Liste</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="foldersTabContent">
+            <div class="tab-pane fade show active" id="folderList" role="tabpanel" aria-labelledby="list-tab">
+              <ul>
+                {% for folder in folders %}
+                  <li>{{ folder.name }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header" id="headingFiles">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFiles" aria-expanded="false" aria-controls="collapseFiles">
+            <i class="fas fa-file"></i> Fichiers
+          </button>
+        </h2>
+      </div>
+      <div id="collapseFiles" class="collapse" aria-labelledby="headingFiles" data-parent="#dashboardAccordion">
+        <div class="card-body">
+          <ul class="nav nav-tabs" id="filesTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="list-tab" data-toggle="tab" href="#fileList" role="tab" aria-controls="fileList" aria-selected="true">Liste</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="filesTabContent">
+            <div class="tab-pane fade show active" id="fileList" role="tabpanel" aria-labelledby="list-tab">
+              <ul>
+                {% for file in files %}
+                  <li>{{ file.name }} - {{ file.folder.name }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header" id="headingSharedFiles">
+        <h2 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSharedFiles" aria-expanded="false" aria-controls="collapseSharedFiles">
+            <i class="fas fa-share-alt"></i> Fichiers Partagés
+          </button>
+        </h2>
+      </div>
+      <div id="collapseSharedFiles" class="collapse" aria-labelledby="headingSharedFiles" data-parent="#dashboardAccordion">
+        <div class="card-body">
+          <p>Total: {{ shared_files.count }}</p>
+          <ul>
+            {% for shared_file in shared_files %}
+              <li>{{ shared_file.file.name }} partagé avec {{ shared_file.shared_with.username }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

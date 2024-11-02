@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Détails de la Page Web</h1>
+  <p>Titre: {{ page.title }}</p>
+  <p>Slug: {{ page.slug }}</p>
+  <p>Contenu: {{ page.content }}</p>
+  <p>Créé le: {{ page.created_at }}</p>
+  <p>Mis à jour le: {{ page.updated_at }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="edit" class="btn btn-primary">Editer</button>
+    <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
+  </form>
+  <a href="{% url 'webpage-list' website.pk %}">Retour à la liste des pages web</a>
+{% endblock %}

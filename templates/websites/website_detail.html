@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Détails du Site Web</h1>
+  <p>Domaine: {{ website.domain_name }}</p>
+  <p>Propriétaire: {{ website.owner.username }}</p>
+  <p>Créé le: {{ website.created_at }}</p>
+  <p>Mis à jour le: {{ website.updated_at }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="edit" class="btn btn-primary">Editer</button>
+    <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
+  </form>
+  <a href="{% url 'website-list' %}">Retour à la liste des sites web</a>
+{% endblock %}

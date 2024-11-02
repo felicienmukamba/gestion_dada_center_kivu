@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Tous les Tickets de Support</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><i class="fas fa-user"></i> Utilisateur</th>
+        <th><i class="fas fa-ticket-alt"></i> Sujet</th>
+        <th><i class="fas fa-align-left"></i> Description</th>
+        <th><i class="fas fa-calendar-alt"></i> Créé le</th>
+        <th><i class="fas fa-calendar-alt"></i> Mis à jour le</th>
+        <th><i class="fas fa-check-circle"></i> Résolu</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ticket in tickets %}
+        <tr>
+          <td>{{ ticket.user.username }}</td>
+          <td>{{ ticket.subject }}</td>
+          <td>{{ ticket.description }}</td>
+          <td>{{ ticket.created_at }}</td>
+          <td>{{ ticket.updated_at }}</td>
+          <td>{{ ticket.resolved|yesno:"Oui,Non" }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

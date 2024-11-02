@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Factures</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter une facture</button>
+  </form>
+  <ul>
+    {% for invoice in invoices %}
+      <li>
+        <a href="{% url 'invoice-detail' invoice.pk %}">{{ invoice }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

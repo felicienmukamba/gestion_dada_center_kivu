@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Liste des Sites Web</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Ajouter un site web</button>
+  </form>
+  <ul>
+    {% for website in websites %}
+      <li>
+        <a href="{% url 'website-detail' website.pk %}">{{ website.domain_name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
